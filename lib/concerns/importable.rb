@@ -15,7 +15,12 @@ module Importable
     end
 
     def parse(line)
-      self.new(line.to_h)
+      values = line.to_h.values_at(*self.fields)
+      array = self.fields.map.with_index do |field, i|
+        [field, values[i]]
+      end
+
+      self.new(array.to_h)
     end
   end
 end

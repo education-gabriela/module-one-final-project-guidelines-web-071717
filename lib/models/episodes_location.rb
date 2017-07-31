@@ -1,4 +1,4 @@
-class EpisodeLocation < ActiveRecord::Base
+class EpisodesLocation < ActiveRecord::Base
   belongs_to :episode
   belongs_to :location
 end

@@ -20,7 +20,7 @@ id,name,normalized_name,gender
 47,Cecile Shapiro,cecile shapiro,
 48,Ian,ian,
 49,Calvin,calvin,
-50,Martin Prince, Sr.,martin prince sr,
+50,Martin Prince Sr.,martin prince sr,
 51,Richard,richard,
 53,Wendell Borton,wendell borton,
 57,Smilin' Joe Fission,smilin joe fission,
@@ -407,7 +407,7 @@ id,name,normalized_name,gender
 347,Lionel Hutz,lionel hutz,m
 417,HERB,herb,m
 414,Mona Simpson,mona simpson,f
-335,Roger Meyers, Jr.,roger meyers jr,m
+335,Roger Meyers Jr.,roger meyers jr m
 351,Blue-Haired Lawyer,blue-haired lawyer,m
 349,Dr. Nick Riviera,dr nick riviera,m
 373,Artie Ziff,artie ziff,m
@@ -1563,7 +1563,7 @@ id,name,normalized_name,gender
 1595,Villain,villain,
 1596,Sperm #1,sperm 1,
 1597,Sperm #2,sperm 2,
-1598,SPERM #3, #4, & #5,sperm 3 4 5,
+1598,"SPERM #3, #4, & #5",sperm 3 4 5,
 1599,Sperm #40012,sperm 40012,
 1600,Customers,customers,
 1601,Various Patrons,various patrons,
@@ -1983,7 +1983,7 @@ id,name,normalized_name,gender
 2022,Erin,erin,
 2023,Apu II,apu ii,
 2024,Something,something,
-2025,Hulking, Shambling Figure,hulking shambling figure,
+2025,"Hulking\, Shambling Figure",hulking shambling figure,
 2026,Hugo,hugo,
 2027,Prof. Mini-Frink,prof mini-frink,
 2028,Notable,notable,
@@ -2053,7 +2053,7 @@ id,name,normalized_name,gender
 2092,Townsmen Chorus,townsmen chorus,
 2093,Marge's Dummy,marges dummy,
 2094,Hibbert Family,hibbert family,
-2095,Kearney, Jr.,kearney jr,
+2095,"Kearney\, Jr.",kearney jr,
 2096,Single Man,single man,
 2097,Cracker Executive,cracker executive,
 2098,Chase,chase,
@@ -2073,7 +2073,7 @@ id,name,normalized_name,gender
 2112,Older Nurse,older nurse,
 2114,Young Ned,young ned,
 2115,Young Dr. Foster,young dr foster,
-2116,Nedward Flanders, Sr.,nedward flanders sr,
+2116,"Nedward Flanders, Sr.",nedward flanders sr,
 2117,Mona Flanders,mona flanders,
 2118,Crazy Man,crazy man,
 2119,Jay Sherman,jay sherman,
@@ -2166,7 +2166,7 @@ id,name,normalized_name,gender
 2206,Councilmen,councilmen,
 2207,Head Of Duff,head of duff,
 2208,Quimby's Aide,quimbys aide,
-2210,HOMER, MARGE AND BART,homer marge and bart,
+2210,"HOMER, MARGE AND BART",homer marge and bart,
 2211,Helpful Clerk,helpful clerk,
 2212,Voice In Crowd,voice in crowd,
 2213,Magician,magician,
@@ -2667,7 +2667,7 @@ id,name,normalized_name,gender
 2711,TRENT,trent,
 2712,Valet,valet,
 2713,Guest #1,guest 1,
-2714,Ed Begley, Jr.,ed begley jr,
+2714,"Ed Begley, Jr.",ed begley jr,
 2715,Lorne Michaels,lorne michaels,
 2716,Guest #2,guest 2,
 2717,Bald Eagle,bald eagle,
@@ -3367,7 +3367,7 @@ id,name,normalized_name,gender
 3421,Young Fat Tony,young fat tony,
 3422,Young Moe,young moe,
 3423,Young Legs,young legs,
-3424,Waylon Smithers, Sr.,waylon smithers sr,
+3424,"Waylon Smithers, Sr.",waylon smithers sr,
 3425,WAYLON JR.,waylon jr,
 3426,Space Ship Ensign,space ship ensign,
 4164,Cake,cake,
@@ -3454,7 +3454,7 @@ id,name,normalized_name,gender
 3509,1940S ANNOUNCER,1940s announcer,
 3510,Revue Cast Members,revue cast members,
 3511,Charo,charo,
-3512,RAY JAY JOHNSON, JR.,ray jay johnson jr,
+3512,"RAY JAY JOHNSON, JR.",ray jay johnson jr,
 3513,Charlie Callas,charlie callas,
 3514,Yakov Smirnov,yakov smirnov,
 3515,Audience Members,audience members,

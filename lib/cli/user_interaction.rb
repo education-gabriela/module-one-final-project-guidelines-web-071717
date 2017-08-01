@@ -9,7 +9,7 @@ class UserInteraction
   end
 
   def run
-    welcome
+    puts the_simpsons_logo
     show_commands
     input = get_user_input
   end
@@ -20,6 +20,17 @@ class UserInteraction
       help: "sorry no help here",
       invalid_input: "Sorry, that is not a valid command. Type 'help' to see a list of valid commands."
     }
+  end
+
+  def the_simpsons_logo
+    <<-SIMPSONS
+  ___(_)_ __ ___  _ __  ___  ___  _ __  ___ 
+ / __| | '_ ` _ \\| '_ \\/ __|/ _ \\| '_ \\/ __|
+ \\__ \\ | | | | | | |_) \\__ \\ (_) | | | \\__ \\
+ |___/_|_| |_| |_| .__/|___/\\___/|_| |_|___/
+                 |_|
+
+    SIMPSONS
   end
 
   def show_commands

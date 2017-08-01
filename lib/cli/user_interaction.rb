@@ -1,44 +1,15 @@
 class UserInteraction
 
-  def run
-    welcome
-    input = get_user_input
+  attr_accessor :method_list
+
+  def initialize
+    @method_list = YAML.load_file("config/method_list.yml")
   end
 
-  def method_list
-    {
-      characters: {
-        description: "Gets information about characters",
-        methods: {find_by: "Find a character by attribute: value",
-                  lines: "List all the lines a character has ever spoken"}
-      },
-      episodes: {
-        description: "Gets information about episodes",
-        methods: {find_by: "find an episode by attribute: value"}
-      },
-      locations: {
-        description: "Gets information about locations",
-        methods: {find_by: "find an episode by attribute: value"}
-      },
-      stats: {
-        description: "Curiosities about The Simpsons"
-        methods: {
-          get_the_most_popular_location: {
-            description: "Shows the most popular location",
-            model: "stat"
-            method: "get_the_most_popular_location"
-          }
-        }
-      }
-      lines: {
-        description: "gets information about lines",
-        methods: {find_by: "find a line by attribute: value",
-                  find: "find information on up to 20 lines of dialogue containing the given string"}
-      },
-      help: {
-        description: "show this menu"
-      }
-    }
+  def run
+    welcome
+    show_commands
+    input = get_user_input
   end
 
   def message_list
@@ -90,8 +61,8 @@ class UserInteraction
       puts "Command empty, please try again:"
       get_user_input
 
-    # elsif command is exactly 'help'
-    elsif possible_commands.count == 1 
+      # elsif command is exactly 'help'
+    elsif possible_commands.count == 1
       if possible_commands[0] == "help"
         show_commands
         get_user_input
@@ -99,30 +70,30 @@ class UserInteraction
 #---------add exit method here
       end
 
-    # elsif command contains 2 words
+      # elsif command contains 2 words
     elsif possible_commands[0] && possible_commands[1]
       command1 = possible_commands[0].to_sym
       command2 = possible_commands[1].to_sym
       # params = possible_commands[2..-1]
-
+      # binding.pry
       if method_list[command1][:methods][command2]
         class_name = method_list[command1][:methods][command2][:model]
         method_name = method_list[command1][:methods][command2][:method]
 
-        class_name.capitalize.constantize.send(method_name)
+        class_name.to_s.singularize.capitalize.constantize.send(method_name)
         # can add params later
-      # if command contains 3 words
+        # if command contains 3 words
 
-      # if command contains 4 words
+        # if command contains 4 words
 
-      # if longer command (i.e. searches for segments of lines)
+        # if longer command (i.e. searches for segments of lines)
 
 
       else
 #-------throw error and return to help
 
       end
-      binding.pry
+      # binding.pry
     end
 
   end

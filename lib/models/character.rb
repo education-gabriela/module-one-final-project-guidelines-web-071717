@@ -6,4 +6,10 @@ class Character < ActiveRecord::Base
   
 
   extend Importable::ClassMethods
+
+  def self.print_first_ten
+    Character.first(10).each do |character|
+      puts character.name
+    end
+  end
 end

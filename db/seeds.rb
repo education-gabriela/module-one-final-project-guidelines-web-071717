@@ -32,20 +32,19 @@ puts "Clearning the null out of the table `lines`"
 sql_delete = <<-SQL
 DELETE
 FROM lines
-WHERE character_id IS NULL OR episode_id IS NULL OR location_id IS NULL;
+WHERE character_id IS NULL OR episode_id IS NULL;
 SQL
 
 ActiveRecord::Base.connection.execute(sql_delete)
 
 puts "Saving data to `episodes_characters_locations`..."
 sql_ecl = <<-SQL
- INSERT INTO episodes_characters_locations (episode_id, character_id, location_id)
+ INSERT INTO appearances (episode_id, character_id)
   SELECT
     episode_id,
-    character_id,
-    location_id
+    character_id
   FROM lines
-  GROUP BY episode_id, character_id, location_id
+  GROUP BY episode_id, character_id
 SQL
 
 ActiveRecord::Base.connection.execute(sql_ecl)
@@ -54,11 +53,10 @@ puts "Updating table `lines`..."
 sql_update_lines = <<-SQL
 UPDATE lines
 SET
-  episodes_characters_location_id = (SELECT id
-                                           FROM episodes_characters_locations
-                                           WHERE
-                                             episode_id = lines.episode_id AND character_id = lines.character_id AND
-                                             location_id = lines.location_id)
+  appearance_id = (SELECT id
+                 FROM appearances
+                 WHERE
+                   episode_id = lines.episode_id AND character_id = lines.character_id)
 SQL
 
 ActiveRecord::Base.connection.execute(sql_update_lines)

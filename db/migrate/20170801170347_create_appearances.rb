@@ -5,7 +5,7 @@ class CreateAppearances < ActiveRecord::Migration[5.0]
   		t.integer :character_id
     end
 
-    add_index :episodes_characters_locations, :character_id
-    add_index :episodes_characters_locations, :episode_id
+    add_index :appearances, :character_id
+    add_index :appearances, :episode_id
   end
 end

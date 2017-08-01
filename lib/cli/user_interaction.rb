@@ -20,6 +20,16 @@ class UserInteraction
         description: "Gets information about locations",
         methods: {find_by: "find an episode by attribute: value"}
       },
+      stats: {
+        description: "Curiosities about The Simpsons"
+        methods: {
+          get_the_most_popular_location: {
+            description: "Shows the most popular location",
+            model: "stat"
+            method: "get_the_most_popular_location"
+          }
+        }
+      }
       lines: {
         description: "gets information about lines",
         methods: {find_by: "find a line by attribute: value",
@@ -67,17 +77,51 @@ class UserInteraction
 
   def parse_user_input(input)
     possible_commands = input.split(" ")
+    # command1 will always be (super)method
 
+    # iff exists.....
+    # command 2 will always be (sub)method
+    # command 3 will always be attribute searched
+    # command 4+ will always be value searched for
+
+
+    # if command is empty
     if possible_commands.count == 0
       puts "Command empty, please try again:"
       get_user_input
-    elsif possible_commands.count == 1 && possible_commands[0] == "help"
-      show_commands
-      get_user_input
+
+    # elsif command is exactly 'help'
+    elsif possible_commands.count == 1 
+      if possible_commands[0] == "help"
+        show_commands
+        get_user_input
+      elsif possible_commands[0] == "exit"
+#---------add exit method here
+      end
+
+    # elsif command contains 2 words
     elsif possible_commands[0] && possible_commands[1]
       command1 = possible_commands[0].to_sym
       command2 = possible_commands[1].to_sym
+      # params = possible_commands[2..-1]
 
+      if method_list[command1][:methods][command2]
+        class_name = method_list[command1][:methods][command2][:model]
+        method_name = method_list[command1][:methods][command2][:method]
+
+        class_name.capitalize.constantize.send(method_name)
+        # can add params later
+      # if command contains 3 words
+
+      # if command contains 4 words
+
+      # if longer command (i.e. searches for segments of lines)
+
+
+      else
+#-------throw error and return to help
+
+      end
       binding.pry
     end
 

@@ -8,7 +8,7 @@ class UserInteraction
 	def method_list
 		methods = {
 			characters: {
-				description: "Gets information about characters"
+				description: "Gets information about characters",
 				methods: {
 					find_by: "Find a character by attribute: value",
 					lines: "List all the lines a character has ever spoken"
@@ -30,7 +30,7 @@ class UserInteraction
 			lines: {
 				description: "gets information about lines",
 				methods: {
-					find_by: "find a line by attribute: value"
+					find_by: "find a line by attribute: value",
 					find: "find information on up to 20 lines of dialogue containing the given string"
 				}
 			}
@@ -38,7 +38,7 @@ class UserInteraction
 	end
 
 	def message_list
-		messages {
+		messages = {
 			welcome: "WELCOME!",
 			help: "sorry no help here",
 			invalid_input: "Sorry, that is not a valid command. Type 'help' to see a list of valid commands."

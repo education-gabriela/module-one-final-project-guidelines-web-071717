@@ -1,3 +1,5 @@
+require 'colorize'
+
 class UserInteraction
 
   attr_accessor :method_list
@@ -22,16 +24,22 @@ class UserInteraction
 
   def show_commands
     puts "Enter one of the following commands:\n\n"
+    rows = []
+    puts "Usage: ".colorize(:yellow) + "<command> <subcommand> [<argument>, <value>]\n"
+    puts "Sample:".colorize(:yellow)
+    puts "\tcharacter".colorize(:light_green) + " find_by name lisa"
+    puts "\tstats".colorize(:light_green) + " top_10_popular_episodes\n\n"
     self.method_list.each do |method_name, method_list|
-      puts "#{method_name} - #{method_list[:description]}"
-      # binding.pry
+      rows << [method_name.to_s.colorize(:light_blue), method_list[:description]]
+
       if method_list[:methods]
         method_list[:methods].each do |submethod_name, submethod_description|
-          puts "  #{submethod_name} - #{submethod_description}"
+          rows << ["  #{submethod_name.to_s.colorize(:magenta)}", submethod_description[:description]]
         end
       end
-      # puts "\n"
     end
+    table = TTY::Table[*rows]
+    puts table.to_s
   end
 
   # welcome the user and then print help message containing valid commands
@@ -58,7 +66,7 @@ class UserInteraction
 
     # if command is empty
     if possible_commands.count == 0
-      puts "Command empty, please try again:"
+      puts "Command empty, please try again:".colorize(:red )
       get_user_input
 
       # elsif command is exactly 'help'

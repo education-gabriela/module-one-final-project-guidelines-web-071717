@@ -8,11 +8,17 @@
 :episodes:
   :description: Gets information about episodes
   :methods:
-    :find_by: 'find an episode by attribute: value'
+    :find_by:
+      :description: 'find an episode by attribute: value'
+      :model: episode
+      :method: find_by
 :locations:
   :description: Gets information about locations
   :methods:
-    :find_by: 'find an episode by attribute: value'
+    :find_by:
+      :description: 'find a location by attribute: value'
+      :model: location
+      :method: find_by
 :stats:
   :description: Curiosities about The Simpsons
   :methods:
@@ -27,7 +33,13 @@
 :lines:
   :description: gets information about lines
   :methods:
-    :find_by: 'find a line by attribute: value'
-    :find: find information on up to 20 lines of dialogue containing the given string
+    :find_by:
+      :description: 'find a line by attribute: value'
+      :model: line
+      :method: find_by
+    :find:
+      :description: find information on up to 20 lines of dialogue containing the given string
+      :model: line
+      :method: find
 :help:
   :description: show this menu

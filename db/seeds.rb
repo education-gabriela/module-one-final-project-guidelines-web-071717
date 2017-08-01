@@ -1,31 +1,64 @@
-episode1 = Episode.create(title: "Title 1", original_air_date: "2017-07-31")
-episode2 = Episode.create(title: "Title 2", original_air_date: "2017-06-05")
+# episode1 = Episode.create(title: "Title 1", original_air_date: "2017-07-31")
+# episode2 = Episode.create(title: "Title 2", original_air_date: "2017-06-05")
+#
+# character1 = Character.create(name: "Lisa Simpson", normalized_name: "lisa simpson", gender: "f")
+# character2 = Character.create(name: "Homer Simpson", normalized_name: "homer simpson", gender: "f")
+# character3 = Character.create(name: "Bart Simpson", normalized_name: "bar simpson", gender: "f")
+#
+# location1 = Location.create(name: "Car")
+# location2 = Location.create(name: "Simpsons House")
+#
+# EpisodesCharactersLocation.create(episode: episode1, location: location1, character: character1)
+# EpisodesCharactersLocation.create(episode: episode1, location: location2, character: character1)
+# EpisodesCharactersLocation.create(episode: episode2, location: location2, character: character3)
+# EpisodesCharactersLocation.create(episode: episode2, location: location2, character: character2)
+#
+# line1 = Line.create(episodes_characters_location_id: 1, character_line: 'hey i play the saxophone and im in the car in episode 1')
+# line2 = Line.create(episodes_characters_location_id: 2, character_line: 'i am lisa in the house and youre in episode 1')
+# line3 = Line.create(episodes_characters_location_id: 3, character_line: 'hey im bart in the haus in episode 2')
+# line4 = Line.create(episodes_characters_location_id: 4, character_line: 'hey im homer in the haus in episode 2')
 
-character1 = Character.create(name: "Lisa Simpson", normalized_name: "lisa simpson", gender: "f")
-character2 = Character.create(name: "Homer Simpson", normalized_name: "homer simpson", gender: "f")
-character3 = Character.create(name: "Bart Simpson", normalized_name: "bar simpson", gender: "f")
+#### IMPORTING THE FILES THROUGH THE DATABASE ###
+puts "Importing Episodes..."
+Episode.import(Dir.pwd + "/db/csv/simpsons_episodes.csv")
+puts "Importing Locations..."
+Location.import(Dir.pwd + "/db/csv/simpsons_locations.csv")
+puts "Importing Characters..."
+Character.import(Dir.pwd + "/db/csv/simpsons_characters.csv")
+puts "Importing Lines..."
+Line.import(Dir.pwd + "/db/csv/simpsons_lines.tsv")
 
-# CharactersEpisode.create(episode: episode1, character: character1)
-# CharactersEpisode.create(episode: episode1, character: character2)
-# CharactersEpisode.create(episode: episode1, character: character3)
+puts "Clearning the null out of the table `lines`"
+sql_delete = <<-SQL
+DELETE
+FROM lines
+WHERE character_id IS NULL OR episode_id IS NULL OR location_id IS NULL;
+SQL
 
-# CharactersEpisode.create(episode: episode2, character: character1)
-# CharactersEpisode.create(episode: episode2, character: character2)
+ActiveRecord::Base.connection.execute(sql_delete)
 
-location1 = Location.create(name: "Car")
-location2 = Location.create(name: "Simpsons House")
+puts "Saving data to `episodes_characters_locations`..."
+sql_ecl = <<-SQL
+ INSERT INTO episodes_characters_locations (episode_id, character_id, location_id)
+  SELECT
+    episode_id,
+    character_id,
+    location_id
+  FROM lines
+  GROUP BY episode_id, character_id, location_id
+SQL
 
-# EpisodesLocation.create(episode: episode1, location: location1)
-# EpisodesLocation.create(episode: episode1, location: location2)
-# EpisodesLocation.create(episode: episode2, location: location2)
+ActiveRecord::Base.connection.execute(sql_ecl)
 
+puts "Updating table `lines`..."
+sql_update_lines = <<-SQL
+UPDATE lines
+SET
+  episodes_characters_location_id = (SELECT id
+                                           FROM episodes_characters_locations
+                                           WHERE
+                                             episode_id = lines.episode_id AND character_id = lines.character_id AND
+                                             location_id = lines.location_id)
+SQL
 
-EpisodesCharactersLocation.create(episode: episode1, location: location1, character: character1)
-EpisodesCharactersLocation.create(episode: episode1, location: location2, character: character1)
-EpisodesCharactersLocation.create(episode: episode2, location: location2, character: character3)
-EpisodesCharactersLocation.create(episode: episode2, location: location2, character: character2)
-
-line1 = Line.create(episodes_characters_location_id: 1, character_line: 'hey i play the saxophone and im in the car in episode 1')
-line2 = Line.create(episodes_characters_location_id: 2, character_line: 'i am lisa in the house and youre in episode 1')
-line3 = Line.create(episodes_characters_location_id: 3, character_line: 'hey im bart in the haus in episode 2')
-line4 = Line.create(episodes_characters_location_id: 4, character_line: 'hey im homer in the haus in episode 2')
+ActiveRecord::Base.connection.execute(sql_update_lines)

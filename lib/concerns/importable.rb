@@ -7,7 +7,6 @@ module Importable
     end
 
     def import(file)
-      puts file.inspect
       CSV.foreach(file, :headers=>:true, header_converters: :symbol) do |row|
         object = parse(row)
         object.save

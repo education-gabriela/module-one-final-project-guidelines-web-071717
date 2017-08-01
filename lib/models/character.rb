@@ -1,8 +1,9 @@
 class Character < ActiveRecord::Base
-  has_many :episodes_characters_locations
-  has_many :episodes, through: :episodes_characters_locations
-  has_many :locations, through: :episodes_characters_locations
-  has_many :lines, through: :episodes_characters_locations
+  has_many :appearances
+  has_many :episodes, through: :appearances
+  has_many :lines, through: :appearances
+  has_many :locations, through: :lines
+  
 
   extend Importable::ClassMethods
 end

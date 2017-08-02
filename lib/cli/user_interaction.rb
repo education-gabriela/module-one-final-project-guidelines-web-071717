@@ -25,14 +25,14 @@ class UserInteraction
 
   def the_simpsons_logo
     <<-SIMPSONS
-  _________________________________________________
+_________________________________________________
 
-  ___(_)_ __ ___  _ __  ___  ___  _ __  ___ 
- / __| | '_ ` _ \\| '_ \\/ __|/ _ \\| '_ \\/ __|
- \\__ \\ | | | | | | |_) \\__ \\ (_) | | | \\__ \\
- |___/_|_| |_| |_| .__/|___/\\___/|_| |_|___/
-                 |_|
-  _________________________________________________
+    ___(_)_ __ ___  _ __  ___  ___  _ __  ___ 
+   / __| | '_ ` _ \\| '_ \\/ __|/ _ \\| '_ \\/ __|
+   \\__ \\ | | | | | | |_) \\__ \\ (_) | | | \\__ \\
+   |___/_|_| |_| |_| .__/|___/\\___/|_| |_|___/
+                   |_|
+_________________________________________________
     SIMPSONS
   end
 
@@ -133,17 +133,6 @@ class UserInteraction
 
     # return to beginning
     get_user_input
-
-  end
-
-  # compare user input to method_list
-  def get_method_from_input
-    method_list.each do |method_category|
-      method_category[:methods].keys.each do |method_name|
-        # do comparison here?
-
-      end
-    end
   end
 
   # given valid class_name and method_name, make the call

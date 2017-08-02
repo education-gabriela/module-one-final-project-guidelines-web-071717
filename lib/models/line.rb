@@ -43,31 +43,32 @@ class Line < ActiveRecord::Base
     lines = Line.where("character_normalized_line LIKE ?", segment).limit(50)
     # lines is an array of line objects
     
-    lines.each do |line|
-      puts "\n"
-      puts "id: " + line.id.to_s.colorize(:green)
-      puts "episode_id: " + line.episode_id.to_s.colorize(:cyan)
-      puts "character_line: " + line.character_line.to_s.colorize(:light_yellow)
-    end
+    self.print_lines(lines)
 
-    puts "\nYou can use the green id value with the find_by_id command to get more information on a particular line."
+    puts "\n"
+    # "You can use the green id value with the find_by_id command to get more information on a particular line."
 
   end
 
-  # add find by id method to follow up someone's find_by_segment query
-
   def self.find_by_id(id)
     lines = Line.where("id = ?", id)
+    self.print_lines(lines)
+    puts "\nYou can use the episode_id with the episodes find_by_id method to find more info on the episode this line is from."
+  end
+
+  def self.random
+    lines = Line.where("character_line IS NOT NULL").order("random()").limit(1)
+    self.print_lines(lines)
+    puts "\n"
+  end
+
+  def self.print_lines(lines)
     lines.each do |line|
       puts "\n"
       puts "id: " + line.id.to_s.colorize(:green)
       puts "episode_id: " + line.episode_id.to_s.colorize(:cyan)
       puts "character_line: " + line.character_line.to_s.colorize(:light_yellow)
     end
-
-    puts "\nYou can use the episode_id with the episodes find_by_id method to find more info on the episode this line is from."
-
-
   end
 
 end

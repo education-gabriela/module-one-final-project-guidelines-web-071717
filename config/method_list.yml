@@ -65,6 +65,10 @@
       :description: 'find a line and all its information by database id number'
       :model: line
       :method: find_by_id
+    :random:
+      :description: 'see a random line from any time in the show'
+      :model: line
+      :method: random
 :help:
   :description: show this menu
 :exit:

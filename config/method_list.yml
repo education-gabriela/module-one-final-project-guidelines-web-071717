@@ -28,6 +28,10 @@
       :description: gets a list of episodes based in amount of viewers
       :model: episode
       :method: most_popular
+    :season_info:
+      :description: shows season information 1 - 28
+      :model: episode
+      :method: get_season_info
 :locations:
   :description: Gets information about locations
   :methods:
@@ -38,10 +42,18 @@
 :stats:
   :description: Curiosities about The Simpsons
   :methods:
-    :get_the_most_popular_location:
-      :description: Shows the most popular location
+    :show_characters_stats:
+      :description: shows the totals for a character
       :model: stat
-      :method: get_the_most_popular_location
+      :method: show_characters_stats
+    :show_episodes_stats:
+      :description: shows the totals for an episode
+      :model: stat
+      :method: show_episodes_stats
+    :show_locations_stats:
+      :description: shows the totals for a location
+      :model: stat
+      :method: show_locations_stats
 :lines:
   :description: gets information about lines
   :methods:

@@ -11,7 +11,7 @@ class UserInteraction
   def run
     puts the_simpsons_logo.colorize(:yellow)
     show_commands
-    input = get_user_input
+    get_user_input
   end
 
   def message_list
@@ -21,6 +21,11 @@ class UserInteraction
       invalid_input: "Sorry, that is not a valid command.",
       command_empty: "Command empty, please try again:"
     }
+  end
+
+  def invalid_command
+    puts message_list[:invalid_input].colorize(:light_red)
+    get_user_input
   end
 
   def the_simpsons_logo
@@ -76,12 +81,11 @@ _________________________________________________
     # iff exists.....
     # command 2 will always be submethod (sym)
     # command 3 will always be value searched (string)
-    
 
 
     # if command is empty
     if possible_commands.count == 0
-      puts message_list[:command_empty].colorize(:red )
+      puts message_list[:command_empty].colorize(:red)
       get_user_input
 
       # elsif command is exactly 'help' or 'exit'
@@ -92,7 +96,8 @@ _________________________________________________
       elsif possible_commands[0] == "exit"
         exit
       else
-#------- invalid input        
+        puts message_list[:invalid_input].colorize(:light_red)
+        get_user_input
       end
 
       # elsif command contains 2 words
@@ -100,35 +105,32 @@ _________________________________________________
       command1 = possible_commands[0].to_sym
       command2 = possible_commands[1].to_sym
 
-      # params = possible_commands[2..-1]
-      # binding.pry
-
       # check to see that command1 (submethod) is valid before proceeding (avoid nil[] error)
       if method_list[command1]
         # check to see that command2 is a valid method
-        if  method_list[command1][:methods][command2]
+        if method_list[command1][:methods][command2]
           # if no additional commands, process
           if possible_commands.count == 2
             class_name = method_list[command1][:methods][command2][:model]
             method_name = method_list[command1][:methods][command2][:method]
 
             call_query(class_name, method_name)
-          
-          # if command contains 3+ words
+
+            # if command contains 3+ words
           elsif possible_commands[2]
-            command3string  = possible_commands[2..-1].join(" ")
+            command3string = possible_commands[2..-1].join(" ")
             class_name = method_list[command1][:methods][command2][:model]
             method_name = method_list[command1][:methods][command2][:method]
-            call_query_with_args(class_name, method_name, command3string)
+            call_query(class_name, method_name, command3string)
           end
-
+        else
+          invalid_command
         end
-
       else
-#-------throw error and return to help
-
+        invalid_command
       end
-      # binding.pry
+    else
+      invalid_command
     end
 
     # return to beginning
@@ -136,15 +138,13 @@ _________________________________________________
   end
 
   # given valid class_name and method_name, make the call
-  def call_query(class_name, method_name)
-    result = class_name.to_s.singularize.capitalize.constantize.send(method_name)
+  def call_query(class_name, method_name, args = nil)
+    if args == nil
+      result = class_name.to_s.singularize.capitalize.constantize.send(method_name)
+    else
+      result = class_name.to_s.singularize.capitalize.constantize.send(method_name, args)
+    end
+
     puts result
   end
-
-  def call_query_with_args(class_name, method_name, args)
-    result = class_name.to_s.singularize.capitalize.constantize.send(method_name, args)
-    puts result
-  end
-
-
 end

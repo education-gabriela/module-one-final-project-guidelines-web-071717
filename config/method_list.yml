@@ -43,3 +43,5 @@
       :method: find
 :help:
   :description: show this menu
+:exit:
+  :description: exit the program

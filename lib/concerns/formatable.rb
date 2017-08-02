@@ -9,7 +9,9 @@ module Formatable
     end
 
     def tablefy(content)
-      headers = content.first.keys.map(&:to_s)
+      headers = content.first.keys.collect do |key|
+        key.to_s.colorize(:green)
+      end
       rows = content.collect do |row|
         row.values
       end

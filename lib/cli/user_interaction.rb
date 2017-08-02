@@ -149,12 +149,12 @@ class UserInteraction
   # given valid class_name and method_name, make the call
   def call_query(class_name, method_name)
     result = class_name.to_s.singularize.capitalize.constantize.send(method_name)
-    puts self.class.tablefy(result)
+    puts result
   end
 
   def call_query_with_args(class_name, method_name, args)
     result = class_name.to_s.singularize.capitalize.constantize.send(method_name, args)
-    puts self.class.tablefy(result)
+    puts result
   end
 
 

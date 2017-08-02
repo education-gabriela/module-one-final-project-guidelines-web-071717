@@ -20,10 +20,14 @@
 :episodes:
   :description: Gets information about episodes
   :methods:
-    :find_by:
-      :description: 'find an episode by attribute: value'
+    :find_by_name:
+      :description: find an episode based on value given
       :model: episode
-      :method: find_by
+      :method: name_search
+    :most_popular:
+      :description: gets a list of episodes based in amount of viewers
+      :model: episode
+      :method: most_popular
 :locations:
   :description: Gets information about locations
   :methods:

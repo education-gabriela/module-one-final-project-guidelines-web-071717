@@ -1,5 +1,5 @@
 :characters:
-  :description: Gets information about characters
+  :description: 
   :methods:
     :find_by_name:
       :description: finds chracters based on value given
@@ -18,7 +18,7 @@
       :model: character
       :method: characters_list_x_amount
 :episodes:
-  :description: Gets information about episodes
+  :description: 
   :methods:
     :find_by_name:
       :description: find an episode based on value given
@@ -33,14 +33,14 @@
       :model: episode
       :method: get_season_info
 :locations:
-  :description: Gets information about locations
+  :description: 
   :methods:
     :find_by_name:
       :description: finds locations based on value given
       :model: location
       :method: name_search
 :stats:
-  :description: Curiosities about The Simpsons
+  :description: 
   :methods:
     :show_characters_stats:
       :description: shows the totals for a character
@@ -55,7 +55,7 @@
       :model: stat
       :method: show_locations_stats
 :lines:
-  :description: gets information about lines
+  :description: 
   :methods:
     :find_by_segment:
       :description: 'find a line by some segment of it (will only return up to 50 matches)'

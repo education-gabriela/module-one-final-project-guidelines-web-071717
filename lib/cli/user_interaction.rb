@@ -44,12 +44,12 @@ _________________________________________________
   def show_commands
     puts "Enter one of the following commands:\n\n"
     rows = []
-    puts "Usage: ".colorize(:yellow) + "<command> <subcommand> [<argument> <value>]\n"
+    puts "Usage: ".colorize(:yellow) + "<command> ".colorize(:cyan) + "<subcommand> ".colorize(:magenta)  + "[<value>]\n".colorize(:light_red)
     puts "Sample:".colorize(:yellow)
-    puts "\tcharacter".colorize(:light_green) + " find_by".colorize(:light_blue) + " name".colorize(:cyan) + " lisa".colorize(:light_red)
-    puts "\tstats".colorize(:light_green) + " top_10_popular_episodes\n\n".colorize(:light_blue)
+    puts "\tcharacters".colorize(:cyan) + " find_by_name".colorize(:magenta)  + " lisa".colorize(:light_red)
+    puts "\tstats".colorize(:cyan) + " show_episodes_stats\n\n".colorize(:magenta)
     self.method_list.each do |method_name, method_list|
-      rows << [method_name.to_s.colorize(:light_blue), method_list[:description]]
+      rows << [method_name.to_s.colorize(:cyan), method_list[:description]]
 
       if method_list[:methods]
         method_list[:methods].each do |submethod_name, submethod_description|

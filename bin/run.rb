@@ -1,2 +1,4 @@
-require_relative 'config/environment'
+require_relative '../config/environment'
 
+ui = UserInteraction.new
+ui.run

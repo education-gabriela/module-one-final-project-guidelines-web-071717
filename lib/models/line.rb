@@ -40,15 +40,17 @@ class Line < ActiveRecord::Base
 
   def self.find_by_segment(segment)
     segment = "%#{segment}%"
-    lines = Line.where("character_normalized_line LIKE ?", segment)
-            .limit(50) #.pluck(:id, :character_line, :appearance_id)
+    lines = Line.where("character_normalized_line LIKE ?", segment).limit(50)
+    # lines is an array of line objects
     
+    lines.each do |line|
+      puts "\n"
+      puts "id: " + line.id.to_s.colorize(:green)
+      puts "episode_id: " + line.episode_id.to_s.colorize(:cyan)
+      puts "character_line: " + line.character_line.to_s.colorize(:light_yellow)
+    end
 
-    # tp.set :max_width, 1500
-    tp lines, :id, :episode_id, :character_line # => {:width => 1000}
-    puts "please use the ID number in the find_by_id command to get the full quote"
-    # keys = [:id, :character_line, :appearance_id]
-    # self.objectify(keys, lines)
+    puts "\nYou can use the green id value with the find_by_id command to get more information on a particular line."
 
   end
 
@@ -56,10 +58,14 @@ class Line < ActiveRecord::Base
 
   def self.find_by_id(id)
     lines = Line.where("id = ?", id)
-    tp.set :max_width, 1500
-    tp lines, :id, :episode_id, :character_line # => {:width => 1000}
+    lines.each do |line|
+      puts "\n"
+      puts "id: " + line.id.to_s.colorize(:green)
+      puts "episode_id: " + line.episode_id.to_s.colorize(:cyan)
+      puts "character_line: " + line.character_line.to_s.colorize(:light_yellow)
+    end
 
-    puts "\nyou can use the episode_id with the episodes find_by_id method to find more info on this episode"
+    puts "\nYou can use the episode_id with the episodes find_by_id method to find more info on the episode this line is from."
 
 
   end

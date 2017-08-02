@@ -4,7 +4,5 @@ class Episode < ActiveRecord::Base
   has_many :characters, through: :appearances
   has_many :locations, through: :lines
 
-  
-
-  extend Importable::ClassMethods
+  extend Importable::ClassMethods, Formatable::ClassMethods, Findable::ClassMethods
 end

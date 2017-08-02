@@ -41,9 +41,27 @@ class Line < ActiveRecord::Base
   def self.find_by_segment(segment)
     segment = "%#{segment}%"
     lines = Line.where("character_normalized_line LIKE ?", segment)
-            .limit(50).pluck(:id, :character_line, :appearance_id)
-    keys = [:id, :character_line, :appearance_id]
-    self.objectify(keys, lines)
+            .limit(50) #.pluck(:id, :character_line, :appearance_id)
+    
+
+    # tp.set :max_width, 1500
+    tp lines, :id, :episode_id, :character_line # => {:width => 1000}
+    puts "please use the ID number in the find_by_id command to get the full quote"
+    # keys = [:id, :character_line, :appearance_id]
+    # self.objectify(keys, lines)
+
+  end
+
+  # add find by id method to follow up someone's find_by_segment query
+
+  def self.find_by_id(id)
+    lines = Line.where("id = ?", id)
+    tp.set :max_width, 1500
+    tp lines, :id, :episode_id, :character_line # => {:width => 1000}
+
+    puts "\nyou can use the episode_id with the episodes find_by_id method to find more info on this episode"
+
+
   end
 
 end

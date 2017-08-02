@@ -5,7 +5,7 @@ class Line < ActiveRecord::Base
   # belongs_to :character, through: :episodes_characters_location
   # belongs_to :location, through: :episodes_characters_location
 
-  extend Importable::ClassMethods
+  extend Importable::ClassMethods, Formatable::ClassMethods
 
   def self.import(file)
     File.foreach(file) do |line|
@@ -35,4 +35,15 @@ class Line < ActiveRecord::Base
       :word_count => line[12]
     }
   end
+
+  #---------QUERIES--------
+
+  def self.find_by_segment(segment)
+    segment = "%#{segment}%"
+    lines = Line.where("character_normalized_line LIKE ?", segment)
+            .limit(50).pluck(:id, :character_line, :appearance_id)
+    keys = [:id, :character_line, :appearance_id]
+    self.objectify(keys, lines)
+  end
+
 end

@@ -41,10 +41,10 @@
 :lines:
   :description: gets information about lines
   :methods:
-    :find_by:
-      :description: 'find a line by attribute: value'
+    :find_by_segment:
+      :description: 'find a line by some segment of it'
       :model: line
-      :method: find_by
+      :method: find_by_segment
     :find:
       :description: find information on up to 20 lines of dialogue containing the given string
       :model: line

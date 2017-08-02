@@ -29,7 +29,7 @@
   :methods:
     :find_by_name:
       :description: finds locations based on value given
-      :model: character
+      :model: location
       :method: name_search
 :stats:
   :description: Curiosities about The Simpsons

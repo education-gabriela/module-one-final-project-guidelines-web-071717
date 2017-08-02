@@ -1,10 +1,22 @@
 :characters:
   :description: Gets information about characters
   :methods:
-    :print_first_ten:
-      :description: Print first 10
+    :find_by_name:
+      :description: finds chracters based on value given
       :model: character
-      :method: print_first_ten
+      :method: name_search
+    :most_popular:
+      :description: shows the characters with most appearances
+      :model: character
+      :method: characters_most_appearances
+    :most_chatty:
+      :description: shows the characters most chatty
+      :model: character
+      :method: characters_most_talkative
+    :list:
+      :description: shows the list of characters
+      :model: character
+      :method: characters_list_x_amount
 :episodes:
   :description: Gets information about episodes
   :methods:
@@ -15,10 +27,10 @@
 :locations:
   :description: Gets information about locations
   :methods:
-    :find_by:
-      :description: 'find a location by attribute: value'
-      :model: location
-      :method: find_by
+    :find_by_name:
+      :description: finds locations based on value given
+      :model: character
+      :method: name_search
 :stats:
   :description: Curiosities about The Simpsons
   :methods:
@@ -26,10 +38,6 @@
       :description: Shows the most popular location
       :model: stat
       :method: get_the_most_popular_location
-    :test:
-      :description: Test Method
-      :model: stat
-      :method: test
 :lines:
   :description: gets information about lines
   :methods:

@@ -41,19 +41,25 @@ class Line < ActiveRecord::Base
   def self.find_by_segment(segment)
     segment = "%#{segment}%"
     lines = Line.where("character_normalized_line LIKE ?", segment).limit(50)
-    # lines is an array of line objects
-    
-    self.print_lines(lines)
-
-    puts "\n"
+    if lines != []
+      self.print_lines(lines)
+    else
+      puts "Not found.".colorize(:light_red)
+    end
+    # puts "\n"
     # "You can use the green id value with the find_by_id command to get more information on a particular line."
-
+    puts "\n"
   end
 
   def self.find_by_id(id)
     lines = Line.where("id = ?", id)
-    self.print_lines(lines)
-    puts "\nYou can use the episode_id with the episodes find_by_id method to find more info on the episode this line is from."
+    if lines != []
+      self.print_lines(lines)
+    else
+      puts "Not found.".colorize(:light_red)
+    end
+    puts "\n"
+    # puts "\nYou can use the episode_id with the episodes find_by_id method to find more info on the episode this line is from."
   end
 
   def self.random

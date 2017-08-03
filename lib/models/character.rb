@@ -14,22 +14,22 @@ class Character < ActiveRecord::Base
     characters = Character.appearable.group("appearances.character_id").order("total DESC")
                    .limit(10).pluck(:id, :name, "count(appearances.id) AS total")
     keys = [:id, :name, :total]
-    hash = self.objectify(keys, characters)
-    self.tablefy(hash)
+
+    self.build_result(characters, keys)
   end
 
   def self.characters_most_talkative
     characters = Character.appearable.talkable.group("appearances.character_id").order("total DESC").limit(10)
                    .pluck(:id, :name, "count(lines.id) AS total")
     keys = [:id, :name, :total]
-    hash = self.objectify(keys, characters)
-    self.tablefy(hash)
+
+    self.build_result(characters, keys)
   end
 
   def self.characters_list_x_amount(x = 10)
     characters = Character.limit(x.to_i).pluck(:id, :name)
     keys = [:id, :name]
-    hash = self.objectify(keys, characters)
-    self.tablefy(hash)
+
+    self.build_result(characters, keys)
   end
 end

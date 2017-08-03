@@ -31,9 +31,16 @@ class Episode < ActiveRecord::Base
   def self.get_season_info(season_number = 28)
     episodes = Episode.valid_episodes.where(season: season_number.to_i)
                  .order(:number_in_season).pluck(:id, :title, :original_air_date, :number_in_season)
-    binding.pry
     keys = [:id, :title, :air_date, :number_in_season]
 
     self.build_result(episodes, keys)
+  end
+
+  def self.find_by_id(id)
+    episodes = [self.valid_episodes.find(id)].pluck(:id, :title, :original_air_date, :season, :number_in_season)
+    keys = [:id, :title, :air_date, :season, :number_in_season]
+
+    self.build_result(episodes, keys)
+
   end
 end

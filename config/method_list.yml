@@ -24,6 +24,10 @@
       :description: find an episode based on value given
       :model: episode
       :method: name_search
+    :find_by_id:
+      :description: find an episode by its database id
+      :model: episode
+      :method: find_by_id
     :most_popular:
       :description: gets a list of episodes based in amount of viewers
       :model: episode

@@ -1,32 +1,56 @@
-# Module One Final Project Guidelines
+# The Simpsons
 
-Congratulations, you're at the end of module one! You've worked crazy hard to get here and have learned a ton.
+More than 140,000 lines of episodes available for you.
 
-For your final project, we'll be building a Command Line database application.
+## Install
 
-## Project Requirements
+1. Clone this repository
+2. Inside the project folder run `bundle install`
+3. Run `rake db:migrate && rake db:seed`, this step can take several minutes
 
-### Option One - Data Analytics Project 
+## Execution
 
-1. Access a Sqlite3 Database using ActiveRecord. 
-2. You should have at minimum three models including one join model. This means you must have a many-to-many relationship.
-3. You should seed your database using data that you collect either from a CSV, a website by scraping, or an API.
-4. Your models should have methods that answer interesting questions about the data. For example, if you've collected info about movie reviews, what is the most popular movie? What movie has the most reviews?
-5. You should provide a CLI to display the return values of your interesting methods.  
-6. Use good OO design patterns. You should have separate classes for your models and CLI interface. 
+Run `ruby bin/run.rb`:
 
-### Option Two - Command Line CRUD App
+![Imgur](http://i.imgur.com/zMsQEIp.png)
 
-1. Access a Sqlite3 Database using ActiveRecord. 
-2. You should have a minimum of three models. 
-3. You should build out a CLI to give your user full CRUD ability for at least one of your resources. For example, build out a command line To-Do list. A user should be able to create a new to-do, see all todos, update a todo item, and delete a todo. Todos can be grouped into categories, so that a to-do has many categories and categories have many to-dos. 
-4. Use good OO design patterns. You should have separate models for your runner and CLI interface.
- 
-## Instructions
+And execute one of the following to have access to stats and Simpsons characters and episode information:
 
-1. Fork and clone this repository. 
-2. Build your application. Make sure to commit early and commit often. Commit messages should be meaningful (clearly describe what you're doing in the commit) and accurate (there should be nothing in the commit that doesn't match the description in the commit message). Good rule of thumb is to commit every 3-7 mins of actual coding time. Most of your commits should have under 15 lines of code and a 2 line commit is perfectly acceptable.
-3. Make sure to create a good README.md with a short description, install instructions, a contributors guide and a link to the license for your code.
-4. Make sure your project checks off each of the above requirements.
-5. Prepare a video demo (narration helps!) describing how a user would interact with your working project.
-6. *OPTIONAL, BUT RECOMMENDED*: Write a blog post about the project and process.
+* `characters`                                                                                   
+  * `find_by_name`          finds chracters based on value given                                 
+  * `most_popular`          shows the characters with most appearances                           
+  * `most_chatty`           shows the characters most chatty                                     
+  * `list`                  shows the list of characters                                         
+* `episodes`                                                                                     
+  * `find_by_name`          find an episode based on value given                                 
+  * `most_popular`          gets a list of episodes based in amount of viewers                   
+  * `season_info`           shows season information 1 - 28                                      
+* `locations`                                                                                    
+  `find_by_name`          finds locations based on value given                                 
+* `stats`                                                                                        
+  * `show_characters_stats` shows the totals for a character                                     
+  * `show_episodes_stats`   shows the totals for an episode                                      
+  * `show_locations_stats`  shows the totals for a location                                      
+* `lines`                                                                                        
+  * `find_by_segment`       find a line by some segment of it (will only return up to 50 matches)
+  * `find_by_id`            find a line and all its information by database id number            
+  * `random`                see a random line from any time in the show                          
+* `help`                    show this menu                                                       
+* `exit`                    exit the program  
+
+## Examples
+
+Shows characters listing:
+```
+characters list
+```
+
+Shows a list of N characters listing:
+```
+characters list 15
+```
+
+Search by a partial string into lines:
+```
+lines find_by_segment springfield
+```

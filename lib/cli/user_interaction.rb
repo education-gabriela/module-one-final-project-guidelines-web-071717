@@ -44,9 +44,9 @@ _________________________________________________
   def show_commands
     puts "Enter one of the following commands:\n\n"
     rows = []
-    puts "Usage: ".colorize(:yellow) + "<command> ".colorize(:cyan) + "<subcommand> ".colorize(:magenta)  + "[<value>]\n".colorize(:light_red)
+    puts "Usage: ".colorize(:yellow) + "<command> ".colorize(:cyan) + "<subcommand> ".colorize(:magenta) + "[<value>]\n".colorize(:light_red)
     puts "Sample:".colorize(:yellow)
-    puts "\tcharacters".colorize(:cyan) + " find_by_name".colorize(:magenta)  + " lisa".colorize(:light_red)
+    puts "\tcharacters".colorize(:cyan) + " find_by_name".colorize(:magenta) + " lisa".colorize(:light_red)
     puts "\tstats".colorize(:cyan) + " show_episodes_stats\n\n".colorize(:magenta)
     self.method_list.each do |method_name, method_list|
       rows << [method_name.to_s.colorize(:cyan), method_list[:description]]
@@ -72,72 +72,52 @@ _________________________________________________
   def get_user_input
     print ">>  "
     input = gets.chomp
-    parse_user_input(input)
+    begin
+      parse_user_input(input)
+    rescue StandardError
+      invalid_command
+    end
+  end
+
+  def command_to_execute(first, second)
+    command1 = first.to_sym
+    command2 = second.to_sym
+    method_list[command1][:methods][command2]
   end
 
   def parse_user_input(input)
     possible_commands = input.split(" ")
-    # command1 will always be (super)method (sym except for help and exit)
-    # iff exists.....
-    # command 2 will always be submethod (sym)
-    # command 3 will always be value searched (string)
-
-
-    # if command is empty
     if possible_commands.count == 0
       puts message_list[:command_empty].colorize(:red)
       get_user_input
+    elsif possible_commands.count == 1 && possible_commands[0] == "help"
+      show_commands
+      get_user_input
+    elsif possible_commands.count == 1 && possible_commands[0] == "exit"
+      exit
+    elsif possible_commands.count == 2 && possible_commands[0] && possible_commands[1]
+      if method_list[possible_commands[0].to_sym] && command_to_execute(*possible_commands.first(2))
+        to_execute = command_to_execute(*possible_commands.first(2))
+        class_name = to_execute[:model]
+        method_name = to_execute[:method]
 
-      # elsif command is exactly 'help' or 'exit'
-    elsif possible_commands.count == 1
-      if possible_commands[0] == "help"
-        show_commands
-        get_user_input
-      elsif possible_commands[0] == "exit"
-        exit
-      else
-        puts message_list[:invalid_input].colorize(:light_red)
-        get_user_input
-      end
-
-      # elsif command contains 2 words
-    elsif possible_commands[0] && possible_commands[1]
-      command1 = possible_commands[0].to_sym
-      command2 = possible_commands[1].to_sym
-
-      # check to see that command1 (submethod) is valid before proceeding (avoid nil[] error)
-      if method_list[command1]
-        # check to see that command2 is a valid method
-        if method_list[command1][:methods][command2]
-          # if no additional commands, process
-          if possible_commands.count == 2
-            class_name = method_list[command1][:methods][command2][:model]
-            method_name = method_list[command1][:methods][command2][:method]
-
-            call_query(class_name, method_name)
-
-            # if command contains 3+ words
-          elsif possible_commands[2]
-            command3string = possible_commands[2..-1].join(" ")
-            class_name = method_list[command1][:methods][command2][:model]
-            method_name = method_list[command1][:methods][command2][:method]
-            call_query(class_name, method_name, command3string)
-          end
-        else
-          invalid_command
-        end
+        call_query(class_name, method_name)
       else
         invalid_command
       end
+    elsif possible_commands.count >= 3 && command_to_execute(*possible_commands.first(2))
+      command_to_string = possible_commands[2..-1].join(" ")
+      to_execute = command_to_execute(*possible_commands.first(2))
+      class_name = to_execute[:model]
+      method_name = to_execute[:method]
+
+      call_query(class_name, method_name, command_to_string)
     else
       invalid_command
     end
-
-    # return to beginning
     get_user_input
   end
 
-  # given valid class_name and method_name, make the call
   def call_query(class_name, method_name, args = nil)
     if args == nil
       result = class_name.to_s.singularize.capitalize.constantize.send(method_name)

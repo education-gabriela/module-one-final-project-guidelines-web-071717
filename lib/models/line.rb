@@ -64,10 +64,16 @@ class Line < ActiveRecord::Base
 
   def self.print_lines(lines)
     lines.each do |line|
+      # binding.pry
       puts "\n"
-      puts "id: " + line.id.to_s.colorize(:green)
-      puts "episode_id: " + line.episode_id.to_s.colorize(:cyan)
-      puts "character_line: " + line.character_line.to_s.colorize(:light_yellow)
+      puts "id: #{line.id.to_s.colorize(:green)}"
+      puts "episode_id: #{line.episode_id.to_s.colorize(:cyan)}"
+      puts "episode_title: #{line.appearance.episode.title.colorize(:magenta)}"
+      puts "season: #{line.appearance.episode.season.to_s.colorize(:red)}"
+      puts "number_in_season: #{line.appearance.episode.number_in_season.to_s.colorize(:yellow)}"
+      puts "air_date: #{line.appearance.episode.original_air_date.to_s.colorize(:light_blue)}"
+      puts "character: #{line.appearance.character.name.colorize(:light_red)}"
+      puts "line: #{line.character_line.colorize(:light_yellow)}"
     end
   end
 

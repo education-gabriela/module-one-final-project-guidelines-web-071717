@@ -17,7 +17,7 @@ class Line < ActiveRecord::Base
         object = self.new(row)
         object.save
       rescue StandardError => e
-        puts "Error when parsing #{line.inspect}"
+        puts "Warning: error when parsing the following record, skipping it: #{line.inspect}"
       end
     end
   end
@@ -42,7 +42,7 @@ class Line < ActiveRecord::Base
     segment = "%#{segment}%"
     lines = Line.where("character_normalized_line LIKE ?", segment).limit(50)
     # lines is an array of line objects
-    
+
     self.print_lines(lines)
 
     puts "\n"

@@ -88,12 +88,13 @@ _________________________________________________
   def parse_user_input(input)
     possible_commands = input.split(" ")
     if possible_commands.count == 0
-      puts message_list[:command_empty].colorize(:red)
+      puts message_list[:command_empty].colorize(:light_red)
       get_user_input
     elsif possible_commands.count == 1 && possible_commands[0] == "help"
       show_commands
       get_user_input
     elsif possible_commands.count == 1 && possible_commands[0] == "exit"
+      puts "\nGoodbye.\n".colorize(:blue)
       exit
     elsif possible_commands.count == 2 && possible_commands[0] && possible_commands[1]
       if method_list[possible_commands[0].to_sym] && command_to_execute(*possible_commands.first(2))
